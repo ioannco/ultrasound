@@ -29,6 +29,7 @@ export class Renderer {
         this.renderer = new THREE.WebGLRenderer({alpha: true, antialias: true});
         this.renderer.setSize(canvasWidth, canvasHeight);
         this.renderer.setPixelRatio(window.devicePixelRatio);
+        this.renderer.physicallyCorrectLights = true;
 
         this.controls = new CameraControls(this.camera, this.renderer.domElement);
 
@@ -39,12 +40,12 @@ export class Renderer {
         document.body.appendChild(this.renderer.domElement);
 
         /** Light init */
-        this.directLight = new THREE.DirectionalLight(0xffffff, 0.5);
-        this.directLight.position.set(5, 5, 5);
-        this.scene.add(this.directLight);
-
         this.ambientLight = new THREE.AmbientLight (0xffffff, 0.5);
         this.scene.add(this.ambientLight);
+
+        this.directLight = new THREE.DirectionalLight(0xffffff, 0.5);
+        this.directLight.position.y = 10;
+        this.scene.add(this.directLight);
 
         /** Scene init */
         this.initScene();
@@ -76,7 +77,7 @@ export class Renderer {
 
         loader.load(
             // resource URL
-            'models/stand/stand.gltf',
+            'models/stand/stend.glb',
             // called when the resource is loaded
             function ( gltf ) {
 
